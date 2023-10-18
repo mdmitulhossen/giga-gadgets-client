@@ -3,6 +3,7 @@ import Root from "../Layouts/Root";
 import HomePage from "../pages/HomePage";
 import AddProductPage from "../pages/AddProductPage";
 import ProductsDetails from "../pages/ProductsDetails";
+import MyCartPage from "../pages/MyCartPage";
 
 
 const Route = createBrowserRouter([
@@ -24,7 +25,7 @@ const Route = createBrowserRouter([
             },
             {
                 path: "/myCart",
-                element:<h1>myCart</h1>
+                element:<MyCartPage/>
             }
         ]
     }
