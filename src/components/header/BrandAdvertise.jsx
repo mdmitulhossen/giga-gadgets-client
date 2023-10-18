@@ -33,9 +33,11 @@ const BrandAdvertise = () => {
               </div>
               {/* left */}
               <div className="flex-1 mt-10 md:mt-0 w-full md:w-auto relative">
-                <p className="absolute top-40 right-10 px-3 py-5 text-xl rounded-full text-white bg-[#FF497C] font-semibold text-center md:text-left">
-                  New Price : 230$
-                </p>
+                <div className="absolute p-5 w-40 h-40 flex justify-center items-center rounded-full bg-[#FF497C] md:top-40 top-16 md:right-10 right-0 ">
+                  <p className="text-xl rounded-full text-white bg-[#FF497C] font-semibold text-center ">
+                    New Price: <br /> 230$
+                  </p>
+                </div>
 
                 <p className="xl:text-[50px] lg:text-[40px] md:text-[32px] text-[30px] font-bold text-center md:text-left">
                   Apple MacBook Air
@@ -77,9 +79,12 @@ const BrandAdvertise = () => {
               </div>
               {/* left */}
               <div className="flex-1 mt-10 md:mt-0 w-full md:w-auto relative">
-                <p className="absolute top-40 right-10 px-3 py-5 text-xl rounded-full text-white bg-[#FF497C] font-semibold text-center md:text-left">
-                  New Price : 899$
-                </p>
+              <div className="absolute p-5 w-40 h-40 flex justify-center items-center rounded-full bg-[#FF497C] md:top-40 top-16 md:right-10 right-0 ">
+                  <p className="text-xl rounded-full text-white bg-[#FF497C] font-semibold text-center ">
+                    New Price: <br /> 899$
+                  </p>
+                </div>
+               
 
                 <p className="xl:text-[50px] lg:text-[40px] md:text-[32px] text-[30px] font-bold text-center md:text-left">
                   Sony Alpha A6400
@@ -121,9 +126,12 @@ const BrandAdvertise = () => {
               </div>
               {/* left */}
               <div className="flex-1 mt-10 md:mt-0 w-full md:w-auto relative">
-                <p className="absolute top-40 right-10 px-3 py-5 text-xl rounded-full text-white bg-[#FF497C] font-semibold text-center md:text-left">
-                  New Price : 499$
-                </p>
+              <div className="absolute p-5 w-40 h-40 flex justify-center items-center rounded-full bg-[#FF497C] md:top-40 top-16 md:right-10 right-0 ">
+                  <p className="text-xl rounded-full text-white bg-[#FF497C] font-semibold text-center ">
+                    New Price: <br /> 499$
+                  </p>
+                </div>
+              
 
                 <p className="xl:text-[50px] lg:text-[40px] md:text-[32px] text-[30px] font-bold text-center md:text-left">
                   LG 27UP600-W 27"
@@ -132,11 +140,11 @@ const BrandAdvertise = () => {
                   Key Features
                 </p>
                 <p className="font-medium text-black/60 md:text-lg text-center md:text-left">
-                  - Model: 27UP600-W <br /> 
-                  - Resolution: UHD (3840 x 2160) <br /> 
-                  - Display: IPS,60Hz, 5ms GtG <br /> 
+                  - Model: 27UP600-W <br />
+                  - Resolution: UHD (3840 x 2160) <br />
+                  - Display: IPS,60Hz, 5ms GtG <br />
                   - Ports: HDMI, DP, Headphone Out <br />
-                  - Features: Free, Flicker Free, <br /> 
+                  - Features: Free, Flicker Free, <br />
                   - Smart Energy Saving <br />
                 </p>
                 <p className="text-2xl font-semibold text-[#FF497C] mt-2 text-center md:text-left">

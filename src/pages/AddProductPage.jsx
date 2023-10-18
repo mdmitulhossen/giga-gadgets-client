@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
-const AddProductPage = () => {
-  const update = false;
+const AddProductPage = ({ update }) => {
   const [brands, setBrands] = useState([]);
   useEffect(() => {
     fetch("/brands.json")
@@ -18,7 +17,10 @@ const AddProductPage = () => {
               <i className="bx bxs-alarm-add"></i>
             </span>
             <span className="dark:text-white">
-              {update ? 'Update':'Add'} Your <span className="text-[#FF497C]">Product</span>
+              <span className="text-[#FF497C]">
+                {update ? "Update " : "Add "}
+              </span>
+              Your Product
             </span>
           </p>
         </div>

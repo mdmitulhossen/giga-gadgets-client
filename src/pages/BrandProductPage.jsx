@@ -1,8 +1,15 @@
+import { useParams } from "react-router-dom";
 import ProductCard from "../components/Cards/ProductCard";
 import BrandAdvertise from "../components/header/BrandAdvertise";
 
 const BrandProductPage = () => {
+  const {brandName} = useParams()
     const product = true;
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+  });
   return (
     <div className="">
       <BrandAdvertise />
@@ -17,7 +24,7 @@ const BrandProductPage = () => {
             Top Brands
           </p>
           <p className="text-[32px] lg:text-[40px] font-semibold dark:text-white">
-            Apple
+            {brandName}
           </p>
         </div>
 

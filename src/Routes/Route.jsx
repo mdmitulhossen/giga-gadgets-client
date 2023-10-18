@@ -6,6 +6,8 @@ import ProductsDetails from "../pages/ProductsDetails";
 import MyCartPage from "../pages/MyCartPage";
 import BrandProductPage from "../pages/BrandProductPage";
 import NotFoundPage from "../pages/NotFoundPage";
+import LoginPage from "../pages/LoginPage";
+import RegisterPage from "../pages/RegisterPage";
 
 
 const Route = createBrowserRouter([
@@ -19,23 +21,35 @@ const Route = createBrowserRouter([
                 element:<HomePage/>
             },
             {
-                path: "/addProduct",
+                path: "/product/add",
                 element:<AddProductPage/>
+            },
+            {
+                path: "/product/update/:id",
+                element:<AddProductPage update={true}/>
             },
             {
                 path: "/products/:id",
                 element:<ProductsDetails/>
             },
             {
-                path: "/apple",
+                path: "/brand/:brandName",
                 element:<BrandProductPage/>
             },
-
             {
                 path: "/myCart",
                 element:<MyCartPage/>
-            }
+            },
+            
         ]
+    },
+    {
+        path: "/signIn",
+        element:<LoginPage/>
+    },
+    {
+        path: "/signUp",
+        element:<RegisterPage/>
     }
 ]);
 

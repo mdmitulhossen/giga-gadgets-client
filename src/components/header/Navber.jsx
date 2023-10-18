@@ -36,7 +36,7 @@ const Navber = ({ setDarkMode, darkMode }) => {
             </li>
             <li>
               <NavLink
-                to="/addProduct"
+                to="/product/add"
                 className={({ isActive, isPending }) =>
                   isPending
                     ? "pending"
@@ -155,7 +155,7 @@ const Navber = ({ setDarkMode, darkMode }) => {
             <li>
               <NavLink
               onClick={() => setSideOpen(!sideOpen)}
-                to="/addProduct"
+                to="/product/add"
                 className={({ isActive, isPending }) =>
                   isPending
                     ? "pending"
