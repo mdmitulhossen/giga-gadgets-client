@@ -5,12 +5,14 @@ import AddProductPage from "../pages/AddProductPage";
 import ProductsDetails from "../pages/ProductsDetails";
 import MyCartPage from "../pages/MyCartPage";
 import BrandProductPage from "../pages/BrandProductPage";
+import NotFoundPage from "../pages/NotFoundPage";
 
 
 const Route = createBrowserRouter([
     {
         path: "/",
         element:<Root/>,
+        errorElement:<NotFoundPage/>,
         children:[
             {
                 path: "/",
