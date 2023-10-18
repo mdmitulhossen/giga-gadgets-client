@@ -4,6 +4,7 @@ import HomePage from "../pages/HomePage";
 import AddProductPage from "../pages/AddProductPage";
 import ProductsDetails from "../pages/ProductsDetails";
 import MyCartPage from "../pages/MyCartPage";
+import BrandProductPage from "../pages/BrandProductPage";
 
 
 const Route = createBrowserRouter([
@@ -23,6 +24,11 @@ const Route = createBrowserRouter([
                 path: "/products/:id",
                 element:<ProductsDetails/>
             },
+            {
+                path: "/apple",
+                element:<BrandProductPage/>
+            },
+
             {
                 path: "/myCart",
                 element:<MyCartPage/>
