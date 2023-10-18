@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import BrandCard from "../components/Cards/BrandCard";
 import Hero from "../components/header/Hero";
+import Footer from "../components/Footer/Footer";
 
 
 
@@ -30,13 +31,18 @@ const HomePage = () => {
         </div>
 
         {/* grid grid-cols-5 gap-4  dark:bg-[#0F172A] */}
-        <div className="pb-10  grid grid-cols-2 md:grid-cols-4 sm:grid-cols-3  xl:grid-cols-5 gap-5  mt-10 w-full ">
+        <div className=" grid grid-cols-2 md:grid-cols-4 sm:grid-cols-3  xl:grid-cols-5 gap-5  mt-10 w-full ">
       
 
           {brands?.map((brand) => (
             <BrandCard key={brand.id} brand={brand} />
           ))}
         </div>
+      </div>
+
+      {/* footer */}
+      <div>
+        <Footer/>
       </div>
     </div>
   );
