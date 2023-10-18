@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png'
 const Footer = () => {
   return (
-    <div className="mt-20">
+    <div className="pt-20 dark:bg-[#0F172A]">
       {/* Newsletter */}
       <div className="bg-gradient-to-r from-[#F9F3F0] from-10% via-[#FCE7DC] via-30% to-[#F9F3F0] to-90% dark:bg-gradient-to-r dark:from-[#f2f2d8] dark:from-10% dark:via-[#FCE7DC] dark:via-30% dark:to-[#fae1d4] gadgetContainer">
         <div className="flex flex-col gap-4 lg:flex-row justify-between items-center py-4">
@@ -24,7 +24,7 @@ const Footer = () => {
                 type="text"
                 className="px-2 py-1 border rounded focus:outline-[#FF497C]"
               />
-              <button className="px-3 py-2 bg-[#FF497C] text-sm text-white font-semibold rounded">
+              <button className="px-3 py-2 bg-[#FF497C] hover:bg-[#ab3154] text-sm text-white font-semibold rounded">
                 Subscribe
               </button>
             </div>
