@@ -103,7 +103,10 @@ const AddProductPage = () => {
               </label>
               <input
                 className="w-full p-2 border rounded-md focus:outline-[#FF497C]"
-                type="text"
+                maxLength={5}
+                max={5}
+                min={0}
+                type="number"
                 placeholder="Enter Rating"
                 id="rating"
                 name="rating"
