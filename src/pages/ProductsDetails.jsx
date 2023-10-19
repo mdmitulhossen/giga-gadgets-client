@@ -1,6 +1,13 @@
+import { useLoaderData } from "react-router-dom";
 import img1 from "../assets/Hero/sonycemera.png";
+
+
 const ProductsDetails = () => {
-  
+
+  const product = useLoaderData();
+  console.log(product)
+  const {productName,brandName,price,image,type,rating,description} = product || {}
+
   // window scroll top
   window.scrollTo({
     top: 0,
@@ -17,20 +24,20 @@ const ProductsDetails = () => {
               <img
                 alt=""
                 className=" w-full object-cover object-center rounded border border-gray-200"
-                // src="https://www.whitmorerarebooks.com/pictures/medium/2465.jpg"
-                src={img1}
+                src={image}
               />
             </div>
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font text-gray-500 dark:text-gray-200 tracking-widest">
-                BRAND NAME
+                {brandName}
               </h2>
               <h1 className="text-gray-900 dark:text-white text-3xl title-font font-medium mb-1">
-                The Catcher in the Rye
+                {productName}
               </h1>
+              {/* social */}
               <div className="flex mb-4">
                 <span className="flex items-center">
-                  <svg
+                  {/* <svg
                     fill="currentColor"
                     stroke="currentColor"
                     strokeLinecap="round"
@@ -84,9 +91,10 @@ const ProductsDetails = () => {
                     viewBox="0 0 24 24"
                   >
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                  </svg>
-                  <span className="text-gray-600 dark:text-gray-200 ml-3">
-                    4 Reviews
+                  </svg> */}
+                  <span className="text-gray-800 dark:text-gray-200">Rating :</span>
+                  <span className="text-[#FF497C] ml-3">
+                    {rating}
                   </span>
                 </span>
                 <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
@@ -129,19 +137,22 @@ const ProductsDetails = () => {
                 </span>
               </div>
               <p className="leading-relaxed dark:text-white/70">
-                Fam locavore kickstarter distillery. Mixtape chillwave tumeric
-                sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo
-                juiceramps cornhole raw denim forage brooklyn. Everyday carry +1
-                seitan poutine tumeric. Gastropub blue bottle austin listicle
-                pour-over, neutra jean shorts keytar banjo tattooed umami
-                cardigan.
+               {description}
               </p>
+              {/* Color & type*/}
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
                 <div className="flex">
-                  <span className="mr-3 dark:text-white">Color</span>
+                  {/* <span className="mr-3 dark:text-white">Color</span>
                   <button className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"></button>
                   <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"></button>
-                  <button className="border-2 border-gray-300 ml-1 bg-red-500 rounded-full w-6 h-6 focus:outline-none"></button>
+                  <button className="border-2 border-gray-300 ml-1 bg-red-500 rounded-full w-6 h-6 focus:outline-none"></button> */}
+
+
+                  {/* Choose color or see type */}
+                  <span className="text-black dark:text-gray-200 font-semibold">Type :</span>
+                  <span className="text-[#FF497C] ml-3">
+                    {type}
+                  </span>
                 </div>
                 {/* <div className="flex ml-6 items-center">
                   <span className="mr-3">Size</span>
@@ -170,7 +181,7 @@ const ProductsDetails = () => {
               </div>
               <div className="flex">
                 <span className="title-font font-medium text-2xl text-gray-900 dark:text-white">
-                  $58.00
+                  ${price}
                 </span>
                 <button className="flex ml-auto text-white bg-[#FF497C] border-0 py-2 px-6 focus:outline-none hover:bg-[#ab3154] rounded">
                   Add to Cart
