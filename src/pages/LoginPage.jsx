@@ -3,6 +3,7 @@ import logo from "../assets/logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
+import Spinner from "../components/Spinner";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const LoginPage = () => {
     googleSignIn,
     githubSignIn,
     setLoading,
+    loading
   } = useAuth();
   const location = useLocation();
   // google sign in
@@ -65,6 +67,9 @@ const LoginPage = () => {
 
   return (
     <div className="gadgetContainer">
+      {
+        loading && <Spinner/>
+      }
       <div className="flex md:justify-between items-center justify-center flex-wrap gap-4">
         <img className="h-[100px]" src={logo} alt="" />
         <div>
