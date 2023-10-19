@@ -1,25 +1,6 @@
+
 import { baseURL } from "./Url.js";
 
-// all services fatch from here
-export const allServices =async()=>{
-    const response = await fetch('/services.json');
-    const data = await response.json();
-    return data;
-}
-// all services fatch from here
-export const serviceByParams =async({params})=>{
-    const response = await fetch('/services.json');
-    const data = await response.json();
-    const filterData = data?.filter(item=>item.id===params.id)
-    return filterData;
-}
-
-// all Event fatch from here
-export const allEvents =async()=>{
-    const response = await fetch('/event.json');
-    const data = await response.json();
-    return data;
-}
 
 
 // product of brands fatch from here
@@ -36,5 +17,20 @@ export const oneProductLoader =async({params})=>{
     // params => id
     const response = await fetch(`${baseURL}/products/${params.id}`);
     const data = await response.json();
+    return data;
+}
+
+// product of Cart by user fatch from here
+export const productsOfCart =async()=>{
+    const responseProduct = await fetch(`${baseURL}/products`);
+    const dataProduct = await responseProduct.json();
+    const responseProductCart = await fetch(`${baseURL}/cartProducts`);
+    const dataProductCart = await responseProductCart.json();
+
+    const data = {
+        products:dataProduct,
+        productsCart:dataProductCart
+    }
+
     return data;
 }

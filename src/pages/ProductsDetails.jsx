@@ -46,7 +46,7 @@ const ProductsDetails = () => {
         toast.error('Product already exists !!')
       }
       else{
-        toast.error('Successfully added product in cart ')
+        toast.success('Successfully added product in cart ')
       }
     })
     .catch(err=>{

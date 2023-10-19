@@ -9,7 +9,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import ProtectedRoute from "../utilitis/ProtectedRoute";
-import { oneProductLoader, productOfBrands } from "../utilitis/LoaderHandle";
+import { oneProductLoader, productOfBrands, productsOfCart } from "../utilitis/LoaderHandle";
 
 
 const Route = createBrowserRouter([
@@ -44,7 +44,8 @@ const Route = createBrowserRouter([
             },
             {
                 path: "/myCart",
-                element:<ProtectedRoute><MyCartPage/></ProtectedRoute>
+                element:<ProtectedRoute><MyCartPage/></ProtectedRoute>,
+                loader:productsOfCart
             },
             
         ]
