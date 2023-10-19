@@ -20,7 +20,14 @@ const Root = () => {
         <Footer/>
       </div>
 
-      <div><Toaster/></div>
+      <div>
+        <Toaster
+        toastOptions={{
+          duration: 3000,        
+        }}
+         
+      />
+      </div>
     </div>
   );
 };

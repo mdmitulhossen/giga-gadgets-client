@@ -1,15 +1,19 @@
-import { useParams } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import ProductCard from "../components/Cards/ProductCard";
 import BrandAdvertise from "../components/header/BrandAdvertise";
 
 const BrandProductPage = () => {
-  const {brandName} = useParams()
-    const product = true;
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
+  const { brandName } = useParams();
+  const productOfBrand = useLoaderData();
+  
+
+  // window scroll top
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
   });
+  
   return (
     <div className="">
       <BrandAdvertise />
@@ -29,20 +33,23 @@ const BrandProductPage = () => {
         </div>
 
         {/* {products} */}
-        {
-            !product ?
-            <div className="mt-10">
-                <p className="text-3xl font-bold dark:text-white">No Apple Product Available</p>
-            </div>
-            :
-            <div className="grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1  gap-4 mt-10">
+        {productOfBrand?.length === 0 ? (
+          <div className="mt-10">
+            <p className="text-3xl font-bold dark:text-white">
+              No Apple Product Available
+            </p>
+          </div>
+        ) : (
+          <div className="grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1  gap-4 mt-10">
+            {productOfBrand?.map((item) => (
+              <ProductCard key={item.id} item={item} brandPage={true} />
+            ))}
+            {/* <ProductCard brandPage={true}/>
             <ProductCard brandPage={true}/>
             <ProductCard brandPage={true}/>
-            <ProductCard brandPage={true}/>
-            <ProductCard brandPage={true}/>
-        </div>
-        }
-       
+            <ProductCard brandPage={true}/> */}
+          </div>
+        )}
       </div>
     </div>
   );

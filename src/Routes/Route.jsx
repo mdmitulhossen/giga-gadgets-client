@@ -9,6 +9,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import ProtectedRoute from "../utilitis/ProtectedRoute";
+import { productOfBrands } from "../utilitis/LoaderHandle";
 
 
 const Route = createBrowserRouter([
@@ -35,7 +36,9 @@ const Route = createBrowserRouter([
             },
             {
                 path: "/brand/:brandName",
-                element:<BrandProductPage/>
+                element:<BrandProductPage/>,
+                loader:productOfBrands
+                
             },
             {
                 path: "/myCart",

@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
+import { baseURL } from "../utilitis/Url.js";
+import toast from "react-hot-toast";
+import Spinner from "../components/Spinner.jsx";
 
+// import baseURL from '../utilitis/url.js'
 const AddProductPage = ({ update }) => {
+ const [handleLoading,setHandleLoading]=useState(false)
   const [brands, setBrands] = useState([]);
   useEffect(() => {
     fetch("/brands.json")
@@ -14,9 +19,57 @@ const AddProductPage = ({ update }) => {
     behavior: "smooth",
 });
 
+
+
+// Add & update product handle
+
+const productsHandle = (e)=>{
+  e.preventDefault();
+  const form = e.target;
+  
+  const productName = form.name.value;
+  const brandName = form.brand.value;
+  const price = form.price.value;
+  const image = form.image.value;
+  const type = form.type.value;
+  const rating = form.rating.value;
+  const description = form.description.value;
+
+  if(update){
+    const updateProduct = {productName,brandName,price,image,type,rating}
+  }
+  else{
+    // add product handle
+    setHandleLoading(true)
+    const addProduct = {productName,brandName,price,image,type,rating,description}
+    fetch(`${baseURL}`,{
+      method:'POST',
+      headers:{
+        'content-type':'application/json'
+      },
+      body:JSON.stringify(addProduct)
+    })
+    .then(result=>{
+      setHandleLoading(false)
+      toast.success('Product added successfully');
+      form.reset()
+      
+    })
+    .catch(err=>{
+      setHandleLoading(false)
+      toast.error('Cannot Added Product Somthing Wrong!!')
+    })
+  }
+
+}
+
   return (
     <div className="gadgetContainer pt-10">
+      {
+        handleLoading && <Spinner/>
+      }
       <div className="shadow-lg p-5 border dark:bg-[#1a2641d5]">
+        {/* Heading */}
         <div className="mt-5 mb-8">
           <p className="text-center text-3xl font-semibold">
             <span className="mr-3 text-[#FF497C]">
@@ -30,7 +83,8 @@ const AddProductPage = ({ update }) => {
             </span>
           </p>
         </div>
-        <form>
+        {/* form */}
+        <form onSubmit={productsHandle}>
           <div className="flex gap-8 ">
             <div className="flex-1">
               <label className="block mb-2 dark:text-white" htmlFor="name">

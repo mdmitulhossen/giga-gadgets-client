@@ -22,7 +22,7 @@ const Navber = ({ setDarkMode, darkMode }) => {
     setUserOpen(false)
   }
 
-  console.log(user)
+
 
   return (
     <div className="max-w-[1920px] mx-auto">

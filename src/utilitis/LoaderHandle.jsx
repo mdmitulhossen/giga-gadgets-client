@@ -1,3 +1,5 @@
+import { baseURL } from "./Url.js";
+
 // all services fatch from here
 export const allServices =async()=>{
     const response = await fetch('/services.json');
@@ -17,4 +19,22 @@ export const allEvents =async()=>{
     const response = await fetch('/event.json');
     const data = await response.json();
     return data;
+}
+
+
+// product of brands fatch from here
+export const productOfBrands =async({params})=>{
+    // params => brandName
+    const response = await fetch(`${baseURL}`);
+    const data = await response.json();
+    const filterData = data?.filter(item=>item.brandName.toLowerCase()===params.brandName.toLowerCase())
+    return filterData;
+}
+// product details fatch from here
+export const productDetailsLoader =async({params})=>{
+    // params => id
+    const response = await fetch(`${baseURL}`);
+    const data = await response.json();
+    const filterData = data?.filter(item=>parseInt(item._id)===parseInt(params.id))
+    return filterData;
 }

@@ -2,7 +2,7 @@ import './spinner.css'
 
 const Spinner = () => {
   return (
-    <div className='absolute w-full bg-white/50 h-screen'>
+    <div className='absolute inset-0 bg-white/50 h-screen max-w-[1920px] flex justify-center items-center p-5'>
       <div className="socket">
         <div className="gel center-gel">
           <div className="hex-brick h1"></div>

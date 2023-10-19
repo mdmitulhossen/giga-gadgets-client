@@ -1,5 +1,13 @@
-import img1 from '../assets/Hero/sonycemera.png'
+import img1 from "../assets/Hero/sonycemera.png";
 const ProductsDetails = () => {
+  
+  // window scroll top
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
+
   return (
     <div className="pb-10  gadgetContainer">
       <section className="text-black overflow-hidden ">
