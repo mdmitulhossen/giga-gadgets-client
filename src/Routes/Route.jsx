@@ -8,6 +8,7 @@ import BrandProductPage from "../pages/BrandProductPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
+import ProtectedRoute from "../utilitis/ProtectedRoute";
 
 
 const Route = createBrowserRouter([
@@ -22,15 +23,15 @@ const Route = createBrowserRouter([
             },
             {
                 path: "/product/add",
-                element:<AddProductPage/>
+                element:<ProtectedRoute><AddProductPage/></ProtectedRoute>
             },
             {
                 path: "/product/update/:id",
-                element:<AddProductPage update={true}/>
+                element:<ProtectedRoute><AddProductPage update={true}/></ProtectedRoute>
             },
             {
                 path: "/products/:id",
-                element:<ProductsDetails/>
+                element:<ProtectedRoute><ProductsDetails/></ProtectedRoute>
             },
             {
                 path: "/brand/:brandName",
@@ -38,7 +39,7 @@ const Route = createBrowserRouter([
             },
             {
                 path: "/myCart",
-                element:<MyCartPage/>
+                element:<ProtectedRoute><MyCartPage/></ProtectedRoute>
             },
             
         ]

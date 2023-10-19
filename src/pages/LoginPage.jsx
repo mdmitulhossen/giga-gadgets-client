@@ -1,28 +1,70 @@
 import signIn from "../assets/signIn.jpg";
 import logo from "../assets/logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-
+  const {
+    user,
+    signInWithEmailPassword,
+    googleSignIn,
+    githubSignIn,
+    setLoading,
+  } = useAuth();
+  const location = useLocation();
+  // google sign in
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then((result) => {
+        setLoading(false);
+        navigate(location?.state ? location.state : "/");
+        toast.success("Login successful");
+      })
+      .catch((err) => {
+        setLoading(false);
+        toast.error(err.message);
+      });
+  };
+  // github sign in
+  const handleGithubSignIn = () => {
+    githubSignIn()
+      .then((result) => {
+        setLoading(false);
+        navigate(location?.state ? location.state : "/");
+        toast.success("Login successful");
+      })
+      .catch((err) => {
+        // console.log(err)
+        setLoading(false);
+        toast.error(err.message);
+      });
+  };
 
   // Handle Login
-  const handleLogin = (e) =>{
-    e.preventDefault()
-    const form = e.target
-     const email = form?.email.value;
-     const password = form?.password.value;
-     
-    console.log(email,password)
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form?.email.value;
+    const password = form?.password.value;
 
-  }
+    // Sign In
+    signInWithEmailPassword(email, password)
+      .then((result) => {
+        setLoading(false);
+        navigate(location?.state ? location.state : "/");
+        toast.success("Login successful");
+      })
+      .catch((err) => {
+        setLoading(false);
+        toast.error("Please enter a valid email or password");
+      });
 
-
+  };
 
   return (
     <div className="gadgetContainer">
-
-      
       <div className="flex md:justify-between items-center justify-center flex-wrap gap-4">
         <img className="h-[100px]" src={logo} alt="" />
         <div>
@@ -36,7 +78,12 @@ const LoginPage = () => {
         </div>
       </div>
 
-      <p onClick={()=>navigate('/')} className="text-lg font-semibold text-[#FF497C] my-3 cursor-pointer hover:bg-[#FF497C] inline-block rounded py-1 px-2 hover:text-white duration-200"><i className='bx bx-left-arrow-alt'></i> <span>Back Home</span></p>
+      <p
+        onClick={() => navigate("/")}
+        className="text-lg font-semibold text-[#FF497C] my-3 cursor-pointer hover:bg-[#FF497C] inline-block rounded py-1 px-2 hover:text-white duration-200"
+      >
+        <i className="bx bx-left-arrow-alt"></i> <span>Back Home</span>
+      </p>
 
       <div className="border shadow-lg mt-10">
         <div className="w-full  flex">
@@ -67,7 +114,7 @@ const LoginPage = () => {
               </div>
 
               <div className="flex items-center flex-wrap md:flex-nowrap gap-4 mb-4">
-                <button className="w-full max-w-md font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
+                <button onClick={()=>handleGoogleSignIn()} className="w-full max-w-md font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
                   <div className="bg-white p-2 rounded-full">
                     <svg className="w-4" viewBox="0 0 533.5 544.3">
                       <path
@@ -91,7 +138,7 @@ const LoginPage = () => {
                   <span className="ml-4">Sign In with Google</span>
                 </button>
 
-                <button className="w-full max-w-md font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
+                <button onClick={()=>handleGithubSignIn()} className="w-full max-w-md font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
                   <div className="bg-white p-1 rounded-full">
                     <svg className="w-6" viewBox="0 0 32 32">
                       <path

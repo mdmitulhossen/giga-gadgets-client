@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import signUp from "../assets/signUp.jpg";
 import logo from "../assets/logo.png";
 import useAuth from "../hooks/useAuth";
@@ -7,7 +7,7 @@ import Spinner from "../components/Spinner";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-
+  const location = useLocation();
   const {
     user,
     signUpWithEmailPassword,

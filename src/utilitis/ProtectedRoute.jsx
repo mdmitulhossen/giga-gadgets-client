@@ -1,16 +1,16 @@
 
+import Spinner from '../components/Spinner';
 import useAuth from '../hooks/useAuth';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 
 const ProtectedRoute = ({ children }) => {
     const { user, loading } = useAuth() || {};
-    const navigate = useNavigate();
     const location = useLocation();
 
     console.log(location)
     if (loading) {
-        return <p>Loading....</p>
+        return <Spinner/>
     }
     if (user) {
         return children
