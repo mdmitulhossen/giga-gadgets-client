@@ -9,7 +9,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import ProtectedRoute from "../utilitis/ProtectedRoute";
-import { productDetailsLoader, productOfBrands } from "../utilitis/LoaderHandle";
+import { oneProductLoader, productOfBrands } from "../utilitis/LoaderHandle";
 
 
 const Route = createBrowserRouter([
@@ -28,12 +28,13 @@ const Route = createBrowserRouter([
             },
             {
                 path: "/product/update/:id",
-                element:<ProtectedRoute><AddProductPage update={true}/></ProtectedRoute>
+                element:<ProtectedRoute><AddProductPage update={true}/></ProtectedRoute>,
+                loader:oneProductLoader
             },
             {
                 path: "/products/:id",
                 element:<ProtectedRoute><ProductsDetails/></ProtectedRoute>,
-                loader:productDetailsLoader
+                loader:oneProductLoader
             },
             {
                 path: "/brand/:brandName",

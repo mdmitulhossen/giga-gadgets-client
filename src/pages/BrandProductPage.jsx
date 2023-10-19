@@ -42,7 +42,7 @@ const BrandProductPage = () => {
         ) : (
           <div className="grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1  gap-4 mt-10">
             {productOfBrand?.map((item) => (
-              <ProductCard key={item.id} item={item} brandPage={true} />
+              <ProductCard key={item._id} item={item} brandPage={true} />
             ))}
             {/* <ProductCard brandPage={true}/>
             <ProductCard brandPage={true}/>

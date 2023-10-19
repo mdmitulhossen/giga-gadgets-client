@@ -31,7 +31,7 @@ export const productOfBrands =async({params})=>{
     return filterData;
 }
 // product details fatch from here
-export const productDetailsLoader =async({params})=>{
+export const oneProductLoader =async({params})=>{
     // params => id
     const response = await fetch(`${baseURL}/${params.id}`);
     const data = await response.json();
