@@ -11,7 +11,7 @@ const AddProductPage = ({ update }) => {
 
   const product = useLoaderData();
   // const {productName,brandName,price,image,type,rating,description} = updateProduct || {}
-  console.log("Upadate ======>", product);
+  // console.log("Upadate ======>", product);
 
   // Brand data fetch
   useEffect(() => {
@@ -25,6 +25,7 @@ const AddProductPage = ({ update }) => {
     left: 0,
     behavior: "smooth",
   });
+
 
   // Add & update product handle
 

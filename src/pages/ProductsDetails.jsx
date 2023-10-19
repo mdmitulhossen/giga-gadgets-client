@@ -1,12 +1,20 @@
 import { useLoaderData } from "react-router-dom";
-import img1 from "../assets/Hero/sonycemera.png";
+import useAuth from "../hooks/useAuth";
+import { baseURL } from "../utilitis/Url";
+import { useState } from "react";
+import Spinner from "../components/Spinner";
+import toast from "react-hot-toast";
+
 
 
 const ProductsDetails = () => {
-
+  const [cartLoading,setCartLoading] = useState(false)
   const product = useLoaderData();
-  console.log(product)
-  const {productName,brandName,price,image,type,rating,description} = product || {}
+  const {user} = useAuth() || {}
+
+  // console.log("product details ====>",user.email)
+  // console.log(product)
+  const {_id,productName,brandName,price,image,type,rating,description} = product || {}
 
   // window scroll top
   window.scrollTo({
@@ -15,8 +23,44 @@ const ProductsDetails = () => {
     behavior: "smooth",
   });
 
+  //handle Add To Cart
+
+  const handleAddToCart = () =>{
+    setCartLoading(true)
+     const addCartData = {
+      userEmail: user?.email,
+      productId: _id
+     }
+
+    //  add to database
+    fetch(`${baseURL}/cartProducts`,{
+         method:"POST",
+         headers:{
+          'content-type':'application/json'
+         },
+         body:JSON.stringify(addCartData)
+    })
+    .then(result=>{
+      setCartLoading(false)
+      if(result.status===400){
+        toast.error('Product already exists !!')
+      }
+      else{
+        toast.error('Successfully added product in cart ')
+      }
+    })
+    .catch(err=>{
+      setCartLoading(false)
+      toast.error('cannot added to cart. Somthing wrong !!')
+    })
+
+  }
+
   return (
     <div className="pb-10  gadgetContainer">
+      {
+        cartLoading && <Spinner/>
+      }
       <section className="text-black overflow-hidden ">
         <div className=" px-5 py-24 mx-auto">
           <div className="lg:w-full mx-auto flex flex-wrap ">
@@ -183,7 +227,7 @@ const ProductsDetails = () => {
                 <span className="title-font font-medium text-2xl text-gray-900 dark:text-white">
                   ${price}
                 </span>
-                <button className="flex ml-auto text-white bg-[#FF497C] border-0 py-2 px-6 focus:outline-none hover:bg-[#ab3154] rounded">
+                <button onClick={handleAddToCart} className="flex ml-auto text-white bg-[#FF497C] border-0 py-2 px-6 focus:outline-none hover:bg-[#ab3154] rounded">
                   Add to Cart
                 </button>
                 <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">

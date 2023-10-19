@@ -25,15 +25,16 @@ export const allEvents =async()=>{
 // product of brands fatch from here
 export const productOfBrands =async({params})=>{
     // params => brandName
-    const response = await fetch(`${baseURL}`);
+    const response = await fetch(`${baseURL}/products`);
     const data = await response.json();
     const filterData = data?.filter(item=>item.brandName.toLowerCase()===params.brandName.toLowerCase())
     return filterData;
 }
+
 // product details fatch from here
 export const oneProductLoader =async({params})=>{
     // params => id
-    const response = await fetch(`${baseURL}/${params.id}`);
+    const response = await fetch(`${baseURL}/products/${params.id}`);
     const data = await response.json();
     return data;
 }
