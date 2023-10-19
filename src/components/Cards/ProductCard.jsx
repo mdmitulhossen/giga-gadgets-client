@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import test from "../../assets/Hero/applelaptop.png";
 
 const ProductCard = ({brandPage}) => {
+  const navigate = useNavigate();
   // const brandPage = true
   return (
     <div>
@@ -130,7 +132,7 @@ const ProductCard = ({brandPage}) => {
               <div className="flex space-x-2 text-sm font-medium justify-start mt-5">
                 {
                   brandPage?
-                  <button className="transition flex-1 ease-in duration-300 flex items-center text-sm font-medium  md:mb-0 bg-[#FF497C] px-5 py-2 md:py-1 hover:shadow-lg tracking-wider text-white rounded hover:bg-[#ab3154] text-center justify-center ">
+                  <button onClick={()=>navigate('/product/update/1')} className="transition flex-1 ease-in duration-300 flex items-center text-sm font-medium  md:mb-0 bg-[#FF497C] px-5 py-2 md:py-1 hover:shadow-lg tracking-wider text-white rounded hover:bg-[#ab3154] text-center justify-center ">
                   <span className="text-center">Update</span>
                  
                 </button>
@@ -140,7 +142,7 @@ const ProductCard = ({brandPage}) => {
                   
                 </button>
                 }
-                <button className="transition flex-1 ease-in duration-300 bg-gray-700 hover:bg-gray-800 border hover:border-gray-500 border-gray-700 hover:text-white  hover:shadow-lg text-white rounded py-2 md:py-1 text-center  flex justify-center items-center px-4 font-medium text-sm">
+                <button onClick={()=>navigate('/products/1')} className="transition flex-1 ease-in duration-300 bg-gray-700 hover:bg-gray-800 border hover:border-gray-500 border-gray-700 hover:text-white  hover:shadow-lg text-white rounded py-2 md:py-1 text-center  flex justify-center items-center px-4 font-medium text-sm">
                   <span className=" mr-2">
                     <i className="bx bxs-low-vision"></i>
                   </span>

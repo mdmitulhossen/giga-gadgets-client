@@ -4,17 +4,30 @@ import logo from "../../assets/logo.png";
 import userProfile from "../../assets/user-profile.png";
 import darkimg from "../../assets/dark.png";
 import lightimg from "../../assets/light.png";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Navber = ({ setDarkMode, darkMode }) => {
+  const navigate = useNavigate();
   const [sideOpen, setSideOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
 
-  const user = false;
+  const { user,logOut } = useAuth() || {};
+
+  const handleLogOut = ()=>{
+    logOut()
+    .then(result => toast.success('successfully Logout'))
+    .catch(err => toast.error(err))
+    setUserOpen(false)
+  }
+
+  console.log(user)
+
   return (
     <div className="max-w-[1920px] mx-auto">
       <header className="bg-white shadow-lg  flex w-full dark:bg-[#120505] px-5 md:px-[50px] lg:px-[80px] xl:px-[120px] 2xl:px-[150px]">
-        <Link href="" className="md:border-r flex-shrink-0 flex items-center">
+        <Link to="/" className="md:border-r flex-shrink-0 flex items-center">
           <img className="w-[200px]  h-[70px] object-cover" src={logo} alt="" />
         </Link>
         {/* middle */}
@@ -64,7 +77,7 @@ const Navber = ({ setDarkMode, darkMode }) => {
             </li>
           </ul>
         </nav>
-        
+
         {/* End */}
         <div className="relative md:border-l flex items-center  justify-end w-full md:w-auto pl-5 ">
           <div className=" w-[50px]">
@@ -72,7 +85,6 @@ const Navber = ({ setDarkMode, darkMode }) => {
               onClick={() => setDarkMode(!darkMode)}
               className=" p-1 mr-3 flex items-center"
             >
-
               <img
                 className="md:w-full   w-10 object-cover"
                 src={darkMode ? lightimg : darkimg}
@@ -87,13 +99,16 @@ const Navber = ({ setDarkMode, darkMode }) => {
               className="border-2 border-[#FF497C] rounded-full w-[40px]"
             >
               <img
-                src={userProfile}
+                src={user?.photoURL}
                 alt=""
                 className="w-full h-full rounded-full"
               />
             </button>
           ) : (
-            <button className="bg-[#FF497C] hover:bg-[#ab3154] duration-200 text-white font-bold px-4 xl:px-6 py-1 rounded">
+            <button
+              onClick={() => navigate("/signIn")}
+              className="bg-[#FF497C] hover:bg-[#ab3154]  duration-200 text-white font-bold px-4 xl:px-6 py-1 rounded"
+            >
               Login
             </button>
           )}
@@ -102,12 +117,14 @@ const Navber = ({ setDarkMode, darkMode }) => {
           <div
             className={`absolute text-center ${
               userOpen ? "block" : "hidden"
-            } flex flex-col justify-center items-center gap-4  shadow-lg bg-white dark:bg-[#120505] px-8 py-4 top-16 dark:text-white`}
+            } flex flex-col justify-center items-center gap-4  shadow-lg bg-white dark:bg-[#120505] px-8 py-4 top-16 dark:text-white z-50`}
           >
-            <p className="text-lg font-semibold">Md Mitul Hossain</p>
-            <button className="bg-[#FF497C] hover:bg-[#ab3154] duration-200 text-white font-bold px-4 xl:px-6 py-1 rounded ">
+            <p className="text-lg font-semibold">{user?.displayName}</p>
+
+            <button onClick={()=>handleLogOut()} className="bg-[#FF497C] hover:bg-[#ab3154] duration-200 text-white font-bold px-4 xl:px-6 py-1 rounded cursor-pointer">
               logout
             </button>
+
           </div>
         </div>
 
@@ -139,7 +156,7 @@ const Navber = ({ setDarkMode, darkMode }) => {
           <ul className="mt-6 flex flex-col gap-4 ml-5">
             <li>
               <NavLink
-              onClick={() => setSideOpen(!sideOpen)}
+                onClick={() => setSideOpen(!sideOpen)}
                 to="/"
                 className={({ isActive, isPending }) =>
                   isPending
@@ -154,7 +171,7 @@ const Navber = ({ setDarkMode, darkMode }) => {
             </li>
             <li>
               <NavLink
-              onClick={() => setSideOpen(!sideOpen)}
+                onClick={() => setSideOpen(!sideOpen)}
                 to="/product/add"
                 className={({ isActive, isPending }) =>
                   isPending
@@ -169,7 +186,7 @@ const Navber = ({ setDarkMode, darkMode }) => {
             </li>
             <li>
               <NavLink
-              onClick={() => setSideOpen(!sideOpen)}
+                onClick={() => setSideOpen(!sideOpen)}
                 to="/myCart"
                 className={({ isActive, isPending }) =>
                   isPending
@@ -190,20 +207,23 @@ const Navber = ({ setDarkMode, darkMode }) => {
             <div className={`flex flex-col gap-2 top-16 pr-5`}>
               <button className="border-2 mx-auto border-[#FF497C] rounded-full w-[40px]">
                 <img
-                  src={userProfile}
+                  src={user?.photoURL}
                   alt=""
                   className="w-full h-full rounded-full"
                 />
               </button>
               <p className="text-lg font-semibold text-center">
-                Md Mitul Hossain
+                {user?.displayName}
               </p>
-              <button className="bg-[#FF497C] hover:bg-[#ab3154] duration-200 text-white font-bold px-4  py-1 rounded ">
+              <button onClick={()=>handleLogOut()} className="bg-[#FF497C] hover:bg-[#ab3154] duration-200 text-white font-bold px-4  py-1 rounded ">
                 logout
               </button>
             </div>
           ) : (
-            <button className="bg-[#FF497C] hover:bg-[#ab3154] duration-200 text-white font-bold px-4 xl:px-6 py-1 rounded">
+            <button
+              onClick={() => navigate("/signIn")}
+              className="bg-[#FF497C] hover:bg-[#ab3154] duration-200 text-white font-bold px-4 xl:px-6 py-1 rounded"
+            >
               Login
             </button>
           )}

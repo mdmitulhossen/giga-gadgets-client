@@ -8,6 +8,12 @@ const AddProductPage = ({ update }) => {
       .then((data) => setBrands(data));
   }, []);
 
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+});
+
   return (
     <div className="gadgetContainer pt-10">
       <div className="shadow-lg p-5 border dark:bg-[#1a2641d5]">

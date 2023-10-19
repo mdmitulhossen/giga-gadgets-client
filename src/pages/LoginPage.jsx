@@ -1,10 +1,28 @@
 import signIn from "../assets/signIn.jpg";
 import logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
+
+  // Handle Login
+  const handleLogin = (e) =>{
+    e.preventDefault()
+    const form = e.target
+     const email = form?.email.value;
+     const password = form?.password.value;
+     
+    console.log(email,password)
+
+  }
+
+
+
   return (
     <div className="gadgetContainer">
+
+      
       <div className="flex md:justify-between items-center justify-center flex-wrap gap-4">
         <img className="h-[100px]" src={logo} alt="" />
         <div>
@@ -17,6 +35,8 @@ const LoginPage = () => {
           </Link>
         </div>
       </div>
+
+      <p onClick={()=>navigate('/')} className="text-lg font-semibold text-[#FF497C] my-3 cursor-pointer hover:bg-[#FF497C] inline-block rounded py-1 px-2 hover:text-white duration-200"><i className='bx bx-left-arrow-alt'></i> <span>Back Home</span></p>
 
       <div className="border shadow-lg mt-10">
         <div className="w-full  flex">
@@ -90,7 +110,7 @@ const LoginPage = () => {
                 </div>
               </div>
 
-              <form action="" className="space-y-3 w-full ">
+              <form onSubmit={handleLogin} className="space-y-3 w-full ">
                 <div>
                   <fieldset className="border border-solid border-gray-300 p-3 w-full rounded">
                     <legend className=" font-medium text-black/60">

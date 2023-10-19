@@ -1,11 +1,102 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import signUp from "../assets/signUp.jpg";
 import logo from "../assets/logo.png";
+import useAuth from "../hooks/useAuth";
+import toast from "react-hot-toast";
+import Spinner from "../components/Spinner";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+
+  const {
+    user,
+    signUpWithEmailPassword,
+    updateUserProfile,
+    loading,
+    setLoading,
+    googleSignIn,
+    githubSignIn,
+  } = useAuth() || {};
+
+  // google sign in
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then((result) => {
+        setLoading(false);
+        navigate(location?.state ? location.state : "/");
+        toast.success("Login successful");
+      })
+      .catch((err) => {
+        setLoading(false);
+        toast.error(err.message);
+      });
+  };
+  // github sign in
+  const handleGithubSignIn = () => {
+    githubSignIn()
+      .then((result) => {
+        setLoading(false)
+        navigate(location?.state ? location.state : "/");
+        toast.success("Login successful");
+      })
+      .catch((err) => {
+        setLoading(false);
+        toast.error(err.message);
+      });
+  };
+
+  // Handle SignUp email password
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form?.name.value;
+    const imageURL = form?.imageURL.value;
+    const email = form?.email.value;
+    const password = form?.password.value;
+    // Password Validation
+    if (
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/.test(
+        password
+      )
+    ) {
+      toast.error(
+        "password must be have at least 6 characters,a capital & spacial letter,one number"
+      );
+      return;
+    }
+    // Email Validation
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      toast.error("Please enter a valid email");
+      return;
+    }
+
+    //create user
+    signUpWithEmailPassword(email, password)
+      .then((result) => {
+        updateUserProfile({ displayName: name, photoURL: imageURL })
+          .then(() => {
+            console.log("you update profile 2");
+            setLoading(false);
+            navigate(location?.state ? location.state : "/");
+            toast.success("Registration successful");
+          })
+          .catch((err) => {
+            setLoading(false);
+            toast.error(err.message);
+          });
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        setLoading(false);
+      });
+  };
+
+  console.log(user?.photoURL);
   return (
     <div>
-      <div className="gadgetContainer">
+      {loading && <Spinner />}
+
+      <div className="gadgetContainer pb-10">
         <div className="flex md:justify-between items-center justify-center flex-wrap gap-4">
           <img className="h-[100px]" src={logo} alt="" />
           <div>
@@ -18,6 +109,13 @@ const RegisterPage = () => {
             </Link>
           </div>
         </div>
+
+        <p
+          onClick={() => navigate("/")}
+          className="text-lg font-semibold text-[#FF497C] my-3 cursor-pointer hover:bg-[#FF497C] inline-block rounded py-1 px-2 hover:text-white duration-200"
+        >
+          <i className="bx bx-left-arrow-alt"></i> <span>Back Home</span>
+        </p>
 
         <div className="border shadow-lg mt-10">
           <div className="w-full  flex">
@@ -46,7 +144,10 @@ const RegisterPage = () => {
                 </div>
 
                 <div className="flex items-center flex-wrap md:flex-nowrap gap-4 mb-4">
-                  <button className="w-full max-w-md font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
+                  <button
+                    onClick={() => handleGoogleSignIn()}
+                    className="w-full max-w-md font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+                  >
                     <div className="bg-white p-2 rounded-full">
                       <svg className="w-4" viewBox="0 0 533.5 544.3">
                         <path
@@ -70,7 +171,10 @@ const RegisterPage = () => {
                     <span className="ml-4">Sign In with Google</span>
                   </button>
 
-                  <button className="w-full max-w-md font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
+                  <button
+                    onClick={() => handleGithubSignIn()}
+                    className="w-full max-w-md font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+                  >
                     <div className="bg-white p-1 rounded-full">
                       <svg className="w-6" viewBox="0 0 32 32">
                         <path
@@ -89,7 +193,7 @@ const RegisterPage = () => {
                   </div>
                 </div>
 
-                <form action="" className="space-y-3 w-full ">
+                <form onSubmit={handleSignUp} className="space-y-3 w-full ">
                   <div>
                     <fieldset className="border border-solid border-gray-300 p-3 w-full rounded">
                       <legend className=" font-medium text-black/60">

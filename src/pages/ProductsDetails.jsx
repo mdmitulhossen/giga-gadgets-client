@@ -1,3 +1,4 @@
+import img1 from '../assets/Hero/sonycemera.png'
 const ProductsDetails = () => {
   return (
     <div className="pb-10  gadgetContainer">
@@ -6,9 +7,10 @@ const ProductsDetails = () => {
           <div className="lg:w-full mx-auto flex flex-wrap ">
             <div className="lg:w-1/2 w-full  bg-white dark:bg-[#1a2641d5] rounded">
               <img
-                alt="ecommerce"
+                alt=""
                 className=" w-full object-cover object-center rounded border border-gray-200"
-                src="https://www.whitmorerarebooks.com/pictures/medium/2465.jpg"
+                // src="https://www.whitmorerarebooks.com/pictures/medium/2465.jpg"
+                src={img1}
               />
             </div>
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">

@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Navber from "../components/header/Navber";
 import { useState } from "react";
 import Footer from "../components/Footer/Footer";
+import { Toaster } from "react-hot-toast";
 
 const Root = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -18,6 +19,8 @@ const Root = () => {
        <div>
         <Footer/>
       </div>
+
+      <div><Toaster/></div>
     </div>
   );
 };
