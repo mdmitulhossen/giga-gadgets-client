@@ -9,13 +9,21 @@ import choose3 from "../assets/whyChoose/3.webp";
 import choose4 from "../assets/whyChoose/4.webp";
 import choose5 from "../assets/whyChoose/5.webp";
 import ProductCard from "../components/Cards/ProductCard";
+import { baseURL } from "../utilitis/Url";
 
 const HomePage = () => {
   const [brands, setBrands] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
   useEffect(() => {
-    fetch("/brands.json")
+    // brands
+    fetch(`${baseURL}/brands`)
       .then((res) => res.json())
       .then((data) => setBrands(data));
+
+    // all products
+    fetch(`${baseURL}/products`)
+      .then((res) => res.json())
+      .then((data) => setAllProducts(data));
   }, []);
   return (
     <div className="">
@@ -59,11 +67,21 @@ const HomePage = () => {
 
           {/* Product container */}
           <div className="grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1  gap-4 mt-10">
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            {allProducts?.length > 8
+              ? allProducts
+                  ?.slice(0, 8)
+                  .map((item) => <ProductCard key={item._id} item={item} />)
+              : allProducts?.map((item) => (
+                  <ProductCard key={item._id} item={item} />
+                ))}
           </div>
+          {allProducts?.length > 8 && (
+            <div className="mt-10 flex justify-center">
+              <button className="text-white bg-[#FF497C] border-0 py-2 px-6 focus:outline-none hover:bg-[#ab3154] rounded font-semibold duration-200">
+                See All
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Why people choose us */}

@@ -54,7 +54,7 @@ const AddProductPage = ({ update }) => {
         rating,
       };
       // update product handle
-      fetch(`${baseURL}/${product?._id}`, {
+      fetch(`${baseURL}/products/${product?._id}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",
@@ -83,7 +83,7 @@ const AddProductPage = ({ update }) => {
         rating,
         description,
       };
-      fetch(`${baseURL}`, {
+      fetch(`${baseURL}/products`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
