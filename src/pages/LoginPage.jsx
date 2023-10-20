@@ -2,8 +2,9 @@ import signIn from "../assets/signIn.jpg";
 import logo from "../assets/logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import Spinner from "../components/Spinner";
+
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const LoginPage = () => {
     googleSignIn,
     githubSignIn,
     setLoading,
-    loading
+    loading,
   } = useAuth();
   const location = useLocation();
   // google sign in
@@ -59,17 +60,15 @@ const LoginPage = () => {
         toast.success("Login successful");
       })
       .catch((err) => {
+        console.log(err)
         setLoading(false);
-        toast.error("Please enter a valid email or password");
+        toast.error(err.message);
       });
-
   };
 
   return (
     <div className="gadgetContainer">
-      {
-        loading && <Spinner/>
-      }
+      {loading && <Spinner />}
       <div className="flex md:justify-between items-center justify-center flex-wrap gap-4">
         <img className="h-[100px]" src={logo} alt="" />
         <div>
@@ -119,7 +118,10 @@ const LoginPage = () => {
               </div>
 
               <div className="flex items-center flex-wrap md:flex-nowrap gap-4 mb-4">
-                <button onClick={()=>handleGoogleSignIn()} className="w-full max-w-md font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
+                <button
+                  onClick={() => handleGoogleSignIn()}
+                  className="w-full max-w-md font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+                >
                   <div className="bg-white p-2 rounded-full">
                     <svg className="w-4" viewBox="0 0 533.5 544.3">
                       <path
@@ -143,7 +145,10 @@ const LoginPage = () => {
                   <span className="ml-4">Sign In with Google</span>
                 </button>
 
-                <button onClick={()=>handleGithubSignIn()} className="w-full max-w-md font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
+                <button
+                  onClick={() => handleGithubSignIn()}
+                  className="w-full max-w-md font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+                >
                   <div className="bg-white p-1 rounded-full">
                     <svg className="w-6" viewBox="0 0 32 32">
                       <path
@@ -200,6 +205,12 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
+      <Toaster
+          toastOptions={{
+            duration: 3000,
+          }}
+        />
+      
     </div>
   );
 };

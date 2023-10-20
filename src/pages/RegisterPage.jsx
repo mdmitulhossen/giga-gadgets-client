@@ -2,10 +2,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import signUp from "../assets/signUp.jpg";
 import logo from "../assets/logo.png";
 import useAuth from "../hooks/useAuth";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import Spinner from "../components/Spinner";
 
 const RegisterPage = () => {
+  
   const navigate = useNavigate();
   const location = useLocation();
   const {
@@ -17,6 +18,10 @@ const RegisterPage = () => {
     googleSignIn,
     githubSignIn,
   } = useAuth() || {};
+
+
+ 
+
 
   // google sign in
   const handleGoogleSignIn = () => {
@@ -35,7 +40,7 @@ const RegisterPage = () => {
   const handleGithubSignIn = () => {
     githubSignIn()
       .then((result) => {
-        setLoading(false)
+        setLoading(false);
         navigate(location?.state ? location.state : "/");
         toast.success("Login successful");
       })
@@ -53,29 +58,32 @@ const RegisterPage = () => {
     const imageURL = form?.imageURL.value;
     const email = form?.email.value;
     const password = form?.password.value;
+    console.log("ashufakshjf", name, imageURL, email, password);
+
     // Password Validation
     if (
       !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/.test(
         password
       )
     ) {
+    
       toast.error(
         "password must be have at least 6 characters,a capital & spacial letter,one number"
-      );
+      )
       return;
     }
     // Email Validation
-    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+    if (!/^\w+([.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       toast.error("Please enter a valid email");
       return;
     }
 
+    console.log("after");
     //create user
     signUpWithEmailPassword(email, password)
       .then((result) => {
         updateUserProfile({ displayName: name, photoURL: imageURL })
           .then(() => {
-            console.log("you update profile 2");
             setLoading(false);
             navigate(location?.state ? location.state : "/");
             toast.success("Registration successful");
@@ -91,7 +99,6 @@ const RegisterPage = () => {
       });
   };
 
-  console.log(user?.photoURL);
   return (
     <div>
       {loading && <Spinner />}
@@ -262,6 +269,11 @@ const RegisterPage = () => {
           </div>
         </div>
       </div>
+      <Toaster
+          toastOptions={{
+            duration: 3000,
+          }}
+        />
     </div>
   );
 };
