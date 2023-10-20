@@ -7,9 +7,11 @@ import Spinner from "../components/Spinner";
 
 const MyCartPage = () => {
   const { products, productsCart } = useLoaderData() || {};
-  const [cartLoading, setCartLoading] = useState(false);
-  const [productOfCart, setProductOfCart] = useState([]);
   const { user } = useAuth() || {};
+  // useState
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [productOfCart, setProductOfCart] = useState([]);
+  const [cartLoading, setCartLoading] = useState(false);
 
   // find cart product
   useEffect(() => {
@@ -22,39 +24,62 @@ const MyCartPage = () => {
     });
 
     setProductOfCart(filterData);
-
   }, []);
-
 
   // handle delete product into cart
   const deleteProductCard = (id) => {
     console.log(id);
     setCartLoading(true);
-    fetch(`${baseURL}/cartProducts/${id}`,{
-      method:'DELETE'
+    fetch(`${baseURL}/cartProducts/${id}`, {
+      method: "DELETE",
     })
       .then((result) => {
         setCartLoading(false);
-        location.reload()
-        toast.success('Successfully Deleted product into Cart ')
+        location.reload();
+        toast.success("Successfully Deleted product into Cart ");
       })
       .catch((err) => {
         setCartLoading(false);
         toast.error("Somthing worng!! Not delete product into Cart");
       });
   };
+// handle total price
 
+const handleTotalPrice = () => { 
+  console.log(productOfCart[0]?.price)
+  let total = 0;
+  productOfCart.map((item) => {
+    total = total + parseFloat(item.price);
+   
+  })
+  console.log(total)
+  console.log(total)
+  setTotalPrice(total)
+
+}
+  // cartProducts
+  useEffect(() => {
+    handleTotalPrice();
+
+
+    const cartProducts = document.querySelectorAll(".cartProducts");
+    const quantity = cartProducts[0]?.children[1].children[0].value
+    console.log(cartProducts[0]?.children[1].children[0].value)
+
+    
+  }, [productOfCart]);
+  console.log(totalPrice)
   return (
     <div className="gadgetContainer pt-10">
-      {
-        cartLoading && <Spinner/>
-      }
+      {cartLoading && <Spinner />}
       <div className="flex flex-wrap shadow-md mt-10">
         {/* Product */}
         <div className="lg:w-3/4 w-full bg-white dark:bg-[#1a2641d5] px-10 py-10">
           <div className="flex justify-between border-b pb-8 dark:text-white">
             <h1 className="font-semibold text-2xl">Your Cart</h1>
-            <h2 className="font-semibold text-2xl">{productOfCart.length} Items</h2>
+            <h2 className="font-semibold text-2xl">
+              {productOfCart.length} Items
+            </h2>
           </div>
           <div className="flex mt-10 mb-5 flex-wrap">
             <h3 className="font-semibold text-gray-600 dark:text-gray-300 text-xs uppercase w-2/5">
@@ -72,55 +97,63 @@ const MyCartPage = () => {
           </div>
           {/* Items */}
 
-          {productOfCart.length === 0 ? <p className="text-2xl font-semibold dark:text-white my-4">No product here</p>
-          :
-          productOfCart?.map((item) => (
-            <div
-              key={item._id}
-              className="flex relative items-center dark:text-white  -mx-8 px-6 py-5 flex-wrap border mt-3"
-            >
-              <div className="flex w-2/5">
-                <div className="w-20">
-                  <img
-                    className="h-24 w-full object-fill"
-                    src={item.image}
-                    alt=""
+          {productOfCart.length === 0 ? (
+            <p className="text-2xl font-semibold dark:text-white my-4">
+              No product here
+            </p>
+          ) : (
+            productOfCart?.map((item) => (
+              <div
+                key={item._id}
+                className="cartProducts flex relative items-center dark:text-white  -mx-8 px-6 py-5 flex-wrap border mt-3"
+              >
+                <div className="flex w-2/5">
+                  <div className="w-20">
+                    <img
+                      className="h-24 w-full object-fill"
+                      src={item.image}
+                      alt=""
+                    />
+                  </div>
+                  <div className="flex flex-col justify-center gap-2 ml-4 flex-grow">
+                    <span className="font-bold text-sm">
+                      {item.productName}
+                    </span>
+                    <span className="text-red-500 text-xs">
+                      {item.brandName}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex justify-center w-1/5">
+                  <input
+                    id="quantity"
+                    className="mx-2 border text-center w-16 dark:text-black"
+                    type="number"
+                    defaultValue={1}
+                    min={1}
                   />
                 </div>
-                <div className="flex flex-col justify-center gap-2 ml-4 flex-grow">
-                  <span className="font-bold text-sm">{item.productName}</span>
-                  <span className="text-red-500 text-xs">{item.brandName}</span>
-                </div>
+                <span
+                  id="productPrice"
+                  className="text-center w-1/5 font-semibold text-sm"
+                >
+                  $<span>{item.price}</span>
+                </span>
+                <span
+                  id="totalPrice"
+                  className="text-center w-1/5 font-semibold text-sm"
+                >
+                  $<span>{item.price}</span>
+                </span>
+                <button
+                  onClick={() => deleteProductCard(item._id)}
+                  className="px-3 py-1 bg-[#FF497C] font-semibold text-white w-10 absolute top-2 right-2"
+                >
+                  X
+                </button>
               </div>
-              <div className="flex justify-center w-1/5">
-                <input
-                  id="quantity"
-                  className="mx-2 border text-center w-16 dark:text-black"
-                  type="number"
-                  defaultValue={1}
-                  min={1}
-                />
-              </div>
-              <span
-                id="productPrice"
-                className="text-center w-1/5 font-semibold text-sm"
-              >
-                $<span>{item.price}</span>
-              </span>
-              <span
-                id="totalPrice"
-                className="text-center w-1/5 font-semibold text-sm"
-              >
-                $<span>400.00</span>
-              </span>
-              <button
-                onClick={() => deleteProductCard(item._id)}
-                className="px-3 py-1 bg-[#FF497C] font-semibold text-white w-10 absolute top-2 right-2"
-              >
-                X
-              </button>
-            </div>
-          ))}
+            ))
+          )}
 
           {/* Continue Shoping */}
           <Link
@@ -146,8 +179,8 @@ const MyCartPage = () => {
             Order Summary
           </h1>
           <div className="flex justify-between mt-10 mb-5">
-            <span className="font-semibold text-sm uppercase">Items 3</span>
-            <span className="font-semibold text-sm">590$</span>
+            <span className="font-semibold text-sm uppercase">Items {productOfCart?.length}</span>
+            <span className="font-semibold text-sm">{totalPrice}$</span>
           </div>
           <div>
             <label className="font-medium inline-block mb-3 text-sm uppercase">
@@ -177,7 +210,7 @@ const MyCartPage = () => {
           <div className="border-t mt-8">
             <div className="flex font-semibold justify-between py-6 text-sm uppercase">
               <span>Total cost</span>
-              <span>$600</span>
+              <span>${totalPrice+10}</span>
             </div>
             <button className="bg-[#FF497C] hover:bg-[#ab3154] font-semibold  py-3 text-sm text-white uppercase w-full">
               Checkout
