@@ -27,8 +27,8 @@ const Navber = ({ setDarkMode, darkMode }) => {
   return (
     <div className="max-w-[1920px] mx-auto">
       <header className="bg-white shadow-lg  flex w-full dark:bg-[#120505] px-5 md:px-[50px] lg:px-[80px] xl:px-[120px] 2xl:px-[150px]">
-        <Link to="/" className="md:border-r flex-shrink-0 flex items-center">
-          <img className="w-[200px]  h-[70px] object-cover" src={logo} alt="" />
+        <Link to="/" className="md:border-r flex flex-shrink-0 items-center">
+          <img className="md:w-[200px] w-[150px] h-[70px]  object-cover" src={logo} alt="" />
         </Link>
         {/* middle */}
         <nav className="header-links md:contents font-medium text-base  hidden ">

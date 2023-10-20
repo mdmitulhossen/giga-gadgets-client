@@ -188,8 +188,19 @@ const AddProductPage = ({ update }) => {
                 name="image"
                 defaultValue={update ? product?.image : ""}
               />
+              <label className="block mb-2 mt-4 dark:text-white" htmlFor="type">
+              Type
+              </label>
+              <input
+                className="w-full p-2 border rounded-md focus:outline-[#FF497C]"
+                type="text"
+                placeholder="Enter type"
+                id="type"
+                name="type"
+                defaultValue={update ? product?.type : ""}
+              />
 
-              <label className="block mt-4 mb-2 dark:text-white" htmlFor="type">
+              {/* <label className="block mt-4 mb-2 dark:text-white" htmlFor="type">
                 Type
               </label>
               <select
@@ -209,7 +220,7 @@ const AddProductPage = ({ update }) => {
                 <option value="headPhone">HeadPhone</option>
                 <option value="tv">TV</option>
                 <option value="camera">Camera</option>
-              </select>
+              </select> */}
 
               <label
                 className="block mt-4 mb-2 dark:text-white"

@@ -14,11 +14,16 @@ import { baseURL } from "../utilitis/Url";
 const HomePage = () => {
   const [brands, setBrands] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
+  const [brandLoading, setBrandLoading] = useState(false);
   useEffect(() => {
     // brands
+    setBrandLoading(true)
     fetch(`${baseURL}/brands`)
       .then((res) => res.json())
-      .then((data) => setBrands(data));
+      .then((data) => {
+        setBrandLoading(false)
+        setBrands(data)
+      });
 
     // all products
     fetch(`${baseURL}/products`)
@@ -45,6 +50,9 @@ const HomePage = () => {
 
         {/* grid grid-cols-5 gap-4  dark:bg-[#0F172A] */}
         <div className=" grid grid-cols-2 md:grid-cols-4 sm:grid-cols-3  xl:grid-cols-5 gap-5  mt-10 w-full ">
+          {
+            brandLoading && <p className="font-bold mt-4 text-2xl">Brand Loading...</p>
+          }
           {brands?.map((brand) => (
             <BrandCard key={brand.id} brand={brand} />
           ))}

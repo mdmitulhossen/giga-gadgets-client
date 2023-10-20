@@ -35,8 +35,8 @@ const ProductCard = ({brandPage,item}) => {
                 <img
                   
                   src={image}
-                  alt="Just a flower"
-                  className=" w-full object-fill rounded-2xl"
+                  alt=""
+                  className=" w-full h-full object-fill rounded-2xl"
                 />
               </div>
             </div>
