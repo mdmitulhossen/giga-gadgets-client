@@ -15,7 +15,7 @@ const AddProductPage = ({ update }) => {
 
   // Brand data fetch
   useEffect(() => {
-    fetch("/brands.json")
+    fetch(`${baseURL}/brands`)
       .then((res) => res.json())
       .then((data) => setBrands(data));
   }, []);
