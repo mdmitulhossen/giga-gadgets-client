@@ -14,3 +14,5 @@
 - Authentication (email , password, googleLogin, githubLogin)
 - Show user feedback
 - Dark mode,Light Mode
+### Technologies:
+-React JS | Express JS | Firebase | Lottie-react | MongoDB | tailwindCSS
